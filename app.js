@@ -14,15 +14,20 @@ app.use(function(req, res, next) {
     const xRole = req.get('x-role');
     const scope = "tasks.create";
     const scopes = scope.split(".");
-
+    
+    console.log(scopes[0]);
+    console.log(scopes[1]);
+    
 
     for (var i=0; i<roles.length; i++) {
-        console(roles[i].role);
-        console(roles[i]['role']);
+        // console.log(roles[i].role);
+        // console.log(roles[i]['role']);
         if (roles[i]['role'] === xRole) {
-            if (roles['role'][scopes[0]].contains(scopes[1])) {
+            console.log(roles[i]['scopes']);
+            if (roles[i]['scopes'][scopes[0]].includes(scopes[1])) {
                 console.log("Found");
                 next();
+                return;
             }
             else {
                 res.status(403).send('Found xRole but can not find proper scope!');        
